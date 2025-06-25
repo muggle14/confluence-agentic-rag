@@ -1,0 +1,139 @@
+# Confluence Q&A Project - Git Ignore File
+
+# Environment and Secrets
+.env
+.env.*
+*.env
+environment.txt
+config.ini
+secrets.json
+
+# Azure Credentials and Keys
+ATATT3xFfGF0rXdm58JUviPa-u4pdeRqQxCZ0QT8
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+*.ipynb
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs and Debugging
+*.log
+logs/
+debug.log
+error.log
+access.log
+
+# Azure Functions
+bin/
+obj/
+appsettings.json
+local.settings.json
+.azure/
+.azurefunctions/
+
+# Data and Temporary Files
+data/
+temp/
+tmp/
+*.tmp
+*.cache
+*.backup
+*.bak
+
+# Test Files and Coverage
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# Documentation Build
+docs/_build/
+.readthedocs.yml
+
+# Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Azure Bicep and ARM
+*.zip
+deployment-outputs.json
+
+# Local Development
+local/
+sandbox/
+playground/
+
+# Processed Data (keep structure, ignore content)
+processed_sample.json
+sample_page.json
+
+# Confluence API Test Files
+test-confluence-*.py
+run-ingestion-test.py
+
+# Temporary Scripts
+test_*.py
+fix_*.py
+validate_*.py 
