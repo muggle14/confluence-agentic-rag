@@ -1,0 +1,11 @@
+{
+  "name": "confluence-blob-datasource",
+  "type": "azureblob",
+  "credentials": {
+    "connectionString": "{{STORAGE_CONNECTION_STRING}}"
+  },
+  "container": {
+    "name": "confluence-data",
+    "query": "processed/"
+  }
+} 

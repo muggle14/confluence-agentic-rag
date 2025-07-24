@@ -1,0 +1,63 @@
+{
+  "name": "confluence-graph-skillset",
+  "description": "Consolidated skillset with content splitting, embeddings, and graph enrichment",
+  "skills": [
+    {
+      "@odata.type": "#Microsoft.Skills.Text.SplitSkill",
+      "name": "SplitContent",
+      "context": "/document",
+      "textSplitMode": "pages",
+      "maximumPageLength": 1000,
+      "inputs": [
+        { "name": "text", "source": "/document/content/text" }
+      ],
+      "outputs": [{ "name": "textItems", "targetName": "chunks" }]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Text.AzureOpenAIEmbeddingSkill",
+      "name": "ContentEmbedding",
+      "context": "/document",
+      "resourceUri": "{{AZURE_OPENAI_ENDPOINT}}",
+      "apiKey": "{{AZURE_OPENAI_KEY}}",
+      "deploymentId": "{{AZURE_OPENAI_DEPLOYMENT}}",      
+      "inputs": [
+        { "name": "text", "source": "/document/chunks/*" }
+      ],
+      "outputs": [
+        { "name": "embedding", "targetName": "contentVector" }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Text.AzureOpenAIEmbeddingSkill",
+      "name": "TitleEmbedding",
+      "context": "/document",
+      "resourceUri": "{{AZURE_OPENAI_ENDPOINT}}",
+      "apiKey": "{{AZURE_OPENAI_KEY}}",
+      "deploymentId": "{{AZURE_OPENAI_DEPLOYMENT}}",
+      "inputs": [
+        { "name": "text", "source": "/document/title" }
+      ],
+      "outputs": [
+        { "name": "embedding", "targetName": "titleVector" }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
+      "name": "GraphEnrichment",
+      "context": "/document",
+      "uri": "{{GRAPH_FUNCTION_URL}}",
+      "httpMethod": "POST",
+      "batchSize": 1,
+      "inputs": [
+        { "name": "page_id", "source": "/document/page_id" }
+      ],
+      "outputs": [
+        { "name": "parent_page_id",    "targetName": "parent_page_id" },
+        { "name": "hierarchy_depth",       "targetName": "hierarchy_depth" },
+        { "name": "children_ids", "targetName": "children_ids"    },
+        { "name": "adjacent_ids", "targetName": "adjacent_ids"    },
+        { "name": "graph_centrality_score",  "targetName": "graph_centrality_score" }
+      ]
+    }
+  ]
+} 

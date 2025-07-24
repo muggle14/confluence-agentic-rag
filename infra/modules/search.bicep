@@ -1,20 +1,21 @@
 @description('Location for Azure AI Search')
-param location string = resourceGroup().location
+param location string = 'centralus'
 
 @description('Azure AI Search service name')
 param searchServiceName string
 
-// ===== Azure AI Search – Free tier =====
+// ===== Azure AI Search – Standard tier =====
 resource search 'Microsoft.Search/searchServices@2020-08-01' = {
   name: searchServiceName
   location: location
   sku: {
-    name: 'free' // Free tier for dev
+    name: 'standard' // Standard tier for vector index
   }
   properties: {
     hostingMode: 'default'
     replicaCount: 1
     partitionCount: 1
+    publicNetworkAccess: 'enabled'
   }
 }
 

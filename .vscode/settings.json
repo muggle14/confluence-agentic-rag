@@ -1,0 +1,11 @@
+{
+    "azureFunctions.projectSubpath": "",
+    "azureFunctions.deploySubpath": ".",
+    "azureFunctions.scmDoBuildDuringDeployment": true,
+    "azureFunctions.pythonVenv": ".venv",
+    "azureFunctions.projectLanguage": "Python",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "makefile.configureOnOpen": false,
+    "azureFunctions.projectLanguageModel": 2
+}

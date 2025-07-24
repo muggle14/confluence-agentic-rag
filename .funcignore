@@ -1,0 +1,86 @@
+# .funcignore
+# Azure Functions deployment ignore file
+# This file specifies files that should not be deployed to Azure
+
+# Git
+.git*
+.vscode
+
+# Python environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Local settings
+local.settings.json
+.env
+.env.*
+
+# Tests
+test/
+tests/
+.pytest_cache/
+*.test.py
+*_test.py
+test_*.py
+
+# Documentation
+docs/
+*.md
+README.md
+LICENSE
+
+# Development files
+.gitignore
+.funcignore
+requirements-dev.txt
+Makefile
+setup.py
+setup.cfg
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment
+deployment/
+scripts/
+*.sh
+*.ps1
+*.bicep
+azuredeploy.json
+
+# Data files (if any)
+data/
+samples/
+*.csv
+*.xlsx
+
+# Logs
+*.log
+logs/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/

@@ -4,16 +4,16 @@
 .env
 .env.*
 *.env
-environment.txt
-config.ini
+local.settings.json
 secrets.json
+env
 
 # Azure Credentials and Keys
-ATATT3xFfGF0rXdm58JUviPa-u4pdeRqQxCZ0QT8
 *.key
 *.pem
 *.pfx
 *.p12
+*.cert
 
 # Python
 __pycache__/
@@ -45,19 +45,27 @@ env/
 ENV/
 env.bak/
 venv.bak/
-.conda/
+.venv/
+.python_packages/
 
 # Jupyter Notebooks
 .ipynb_checkpoints
 *.ipynb
 
 # IDEs and Editors
-.vscode/
+
 .idea/
 *.swp
 *.swo
 *~
+
+# Operating System
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Logs and Debugging
@@ -67,22 +75,35 @@ debug.log
 error.log
 access.log
 
-# Azure Functions
-bin/
-obj/
+# Azure Functions Specific
+bin
+obj
+csx
+.vs
+edge
+Publish
+*.user
+*.suo
+*.cscfg
+*.Cache
+project.lock.json
+/packages
+/TestResults
+/tools/NuGet.exe
+/App_Data
+/data
+.secrets
 appsettings.json
-local.settings.json
-.azure/
-.azurefunctions/
 
-# Data and Temporary Files
-data/
-temp/
-tmp/
-*.tmp
-*.cache
-*.backup
-*.bak
+# Azurite artifacts
+__azurite_db*__.json
+__blobstorage__
+__queuestorage__
+
+# Azure Functions Core Tools
+.func/
+.azurefunctions/
+azure-functions-core-tools/
 
 # Test Files and Coverage
 .coverage
@@ -97,43 +118,30 @@ coverage.xml
 
 # Documentation Build
 docs/_build/
-.readthedocs.yml
 
-# Package Managers
+# Node (for Azure Functions Core Tools)
 node_modules/
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
 
-# Operating System
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Azure Bicep and ARM
+# Deployment
 *.zip
 deployment-outputs.json
+deployment.zip
 
-# Local Development
-local/
-sandbox/
-playground/
+# Temporary Files
+temp/
+tmp/
+*.tmp
+*.cache
+*.backup
+*.bak
 
-# Processed Data (keep structure, ignore content)
-processed_sample.json
-sample_page.json
+# Data Files (Git should track structure not content)
+data/*.json
+data/*.csv
+processed_data/
+raw_data/
 
-# Confluence API Test Files
-test-confluence-*.py
-run-ingestion-test.py
-
-# Temporary Scripts
+# Test Scripts
 test_*.py
-fix_*.py
-validate_*.py 
+*_test.py

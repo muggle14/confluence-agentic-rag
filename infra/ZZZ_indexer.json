@@ -1,0 +1,38 @@
+{
+  "name": "confluence-graph-indexer",
+  "dataSourceName": "confluence-blob-datasource",
+  "skillsetName": "confluence-graph-skillset",
+  "targetIndexName": "confluence-graph-embeddings",
+  "schedule": {
+    "interval": "PT2H"
+  },
+  "fieldMappings": [
+    {
+      "sourceFieldName": "metadata_storage_path",
+      "targetFieldName": "id",
+      "mappingFunction": {
+        "name": "base64Encode"
+      }
+    },
+    {
+      "sourceFieldName": "metadata_storage_name",
+      "targetFieldName": "page_id"
+    }
+  ],
+  "outputFieldMappings": [
+    {
+      "sourceFieldName": "/document/pages/*/contentVector",
+      "targetFieldName": "contentVector"
+    },
+    {
+      "sourceFieldName": "/document/titleVector",
+      "targetFieldName": "titleVector"
+    }
+  ],
+  "parameters": {
+    "configuration": {
+      "parsingMode": "json",
+      "dataToExtract": "contentAndMetadata"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+# Confluence Q&A System Development Rules
+
+## Core Principles
+
+### 1. Check for Existing Code First
+- **ALWAYS** search the codebase for existing implementations before creating new code
+- **REVIEW** all deployment scripts in `/infra` directory for similar functionality
+- **EXAMINE** existing modules and functions that might already solve the problem
+- **REUSE** existing code whenever possible instead of creating duplicates
+- **DOCUMENT** why new code is needed if existing solutions don't meet requirements
+
+### 2. Azure-First Approach
+- **DO NOT** create custom code for functionality that Azure already provides
+- **ALWAYS** check Azure services documentation for native features before building custom solutions
+- **PREFER** Azure's built-in capabilities (e.g., AI Search indexers, cognitive skills, managed services)
+- **USE** Azure's native integrations between services (e.g., AI Search with OpenAI embeddings)
+
+### 3. Architecture Guidelines
+- Keep architecture simple and use managed services
+- Avoid unnecessary microservices or API layers
+- Leverage Azure's serverless offerings (Functions, Logic Apps) appropriately
+- Use Azure's built-in security features instead of custom implementations
+
+### 4. Code Quality
+- Write production-ready code with proper error handling
+- Include comprehensive logging using Azure Application Insights
+- Follow async/await patterns for Azure SDK operations
+- Use environment variables for all configuration
+
+### 5. Azure AI Search Best Practices
+- Use built-in AI enrichment pipelines for embeddings
+- Configure indexers with appropriate skills instead of custom processing
+- Leverage semantic search capabilities
+- Use integrated vectorization through Azure OpenAI skill
+
+### 6. Cost Optimization
+- Choose appropriate service tiers for development/production
+- Use serverless where possible to minimize costs
+- Monitor usage through Azure Cost Management
+- Implement proper data retention policies
+
+### 7. Documentation
+- Document Azure resource dependencies
+- Include deployment instructions using Azure CLI/Bicep
+- Provide clear environment setup guides
+- Reference official Azure documentation
+
+### 8. Integration Patterns
+- Use Azure's native service-to-service authentication (Managed Identities)
+- Implement proper retry logic using Polly or Azure SDK features
+- Use Azure Service Bus or Event Grid for async communication
+- Leverage Azure Key Vault for secrets management
+
+## Specific Don'ts
+- Don't create custom embedding APIs when Azure AI Search indexers can handle it
+- Don't build authentication systems when Azure AD/Entra ID exists
+- Don't implement custom monitoring when Application Insights is available
+- Don't create complex deployment scripts when Azure DevOps/GitHub Actions work
+
+## Development Workflow
+1. Check for existing code/solutions in the codebase first
+2. Research Azure documentation for native features
+3. Review existing deployment scripts and modules
+4. Design using Azure-native patterns when new code is needed
+5. Implement with minimal custom code, reusing existing components
+6. Deploy using Infrastructure as Code (Bicep/ARM)
+7. Monitor using Azure's built-in tools
+
+Remember: Azure has likely already solved the problem - find and use their solution!
+
+
+## You don't need to agree with me all the times, but provide recommendations 
+## base on the reason and initial planning
+# don't output the full code and only edits for applying unless asked specifically. 

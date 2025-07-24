@@ -724,3 +724,291 @@ User → QueryAnalyser ─┬─> Decomposer
 3. Instrument with **Application Insights**.
 
 This repo is now a fully scripted starting point – replace the placeholders, deploy, and iterate.
+
+
+# TODO: 
+
+2.8 Follow-up Questions
+Detailed Description: Follow-up Questions uses AI to suggest relevant next questions based on the current conversation context, helping users explore topics more deeply and discover related information.
+
+Technical Specifications:
+
+Generation Method: Contextual AI with diversity algorithms
+Question Types: Clarifying, exploratory, related topics
+Personalization: Based on user role and interests
+**UI: Suggested questions appear below responses
+Follow-up Question Generator:
+
+class FollowUpQuestionGenerator:
+    """
+    Generates intelligent follow-up questions based on conversation context
+    """
+    def __init__(self):
+        self.question_model = load_model("question_generation_model")
+        self.diversity_ranker = DiversityRanker()
+        
+    async def generate_follow_ups(self, conversation: Conversation, num_questions: int = 3):
+        # Extract key topics from conversation
+        topics = self.extract_topics(conversation)
+        
+        # Generate candidate questions
+        candidates = []
+        for topic in topics:
+            questions = await self.question_model.generate(
+                context=conversation.get_context(),
+                topic=topic,
+                num_candidates=10
+            )
+            candidates.extend(questions)
+        
+        # Rank by relevance and diversity
+        ranked_questions = self.diversity_ranker.rank(
+            candidates,
+            conversation,
+            num_questions
+        )
+        
+        return ranked_questions
+
+2. AI-Powered Assistant Features
+2.1 AI-Powered Assistant (Core)
+Detailed Description: The AI-Powered Assistant is a conversational AI system that understands natural language, maintains context across conversations, and can perform complex reasoning tasks while integrating with all organizational systems.
+
+Technical Specifications:
+
+LLM Integration: Multi-model support (GPT-4, Claude, Gemini)
+Context Window: 128K tokens with intelligent summarization
+Response Time: <2 seconds for 95% of queries
+Capabilities: Q&A, task execution, analysis, content generation
+Assistant Architecture:
+
+class AIAssistant:
+    """
+    Core AI Assistant with multi-model support and context management
+    """
+    def __init__(self):
+        self.models = {
+            'general': GPT4Model(),
+            'code': CodeLlamaModel(),
+            'analysis': ClaudeModel()
+        }
+        self.context_manager = ContextManager(max_tokens=128000)
+        self.action_executor = ActionExecutor()
+        
+    async def process_message(self, message: str, conversation_id: str):
+        # Load conversation context
+        context = await self.context_manager.load_context(conversation_id)
+        
+        # Determine best model for query
+        model = self.select_model(message, context)
+        
+        # Generate response
+        response = await model.generate(message, context)
+        
+        # Execute any actions
+        if response.has_actions():
+            await self.action_executor.execute(response.actions)
+        
+        # Update context
+        await self.context_manager.update_context(conversation_id, message, response)
+        
+        return response
+
+3.2 AI Assistant with AutoGen
+# assistant_service.py
+import autogen
+from autogen import ConversableAgent, GroupChat, GroupChatManager
+from promptflow import PFClient
+from typing import List, Dict, Any
+import asyncio
+
+class AIAssistantService:
+    """
+    Multi-agent AI assistant using AutoGen
+    """
+    def __init__(self):
+        self.config_list = self._get_llm_config()
+        self.agents = self._initialize_agents()
+        self.prompt_flow_client = PFClient()
+        
+    def _get_llm_config(self):
+        return [{
+            "model": "gpt-4",
+            "api_key": os.environ["AZURE_OPENAI_KEY"],
+            "base_url": f"{os.environ['AZURE_OPENAI_ENDPOINT']}/openai/deployments/gpt-4/",
+            "api_type": "azure",
+            "api_version": "2024-02-01"
+        }]
+        
+    def _initialize_agents(self):
+        """Initialize specialized AutoGen agents"""
+        
+        # Orchestrator agent
+        orchestrator = ConversableAgent(
+            "orchestrator",
+            system_message="""You are the orchestrator agent responsible for:
+            1. Understanding user intent
+            2. Delegating tasks to appropriate agents
+            3. Synthesizing responses from multiple agents
+            4. Ensuring coherent and helpful responses
+            
+            Available agents:
+            - search_agent: For finding information
+            - action_agent: For executing actions
+            - analysis_agent: For deep analysis and research
+            - jargon_agent: For explaining terminology
+            """,
+            llm_config={"config_list": self.config_list}
+        )
+        
+        # Search agent
+        search_agent = ConversableAgent(
+            "search_agent",
+            system_message="You are a search specialist. Find relevant information across all connected systems.",
+            llm_config={"config_list": self.config_list},
+            function_map={
+                "search": self.execute_search,
+                "search_confluence": self.search_confluence
+            }
+        )
+        
+        # Action agent
+        action_agent = ConversableAgent(
+            "action_agent",
+            system_message="You execute actions on behalf of users. Always confirm before taking actions.",
+            llm_config={"config_list": self.config_list},
+            function_map={
+                "create_ticket": self.create_ticket,
+                "schedule_meeting": self.schedule_meeting,
+                "send_message": self.send_message
+            }
+        )
+        
+        # Analysis agent
+        analysis_agent = ConversableAgent(
+            "analysis_agent",
+            system_message="You perform deep analysis and research on complex topics.",
+            llm_config={"config_list": self.config_list},
+            function_map={
+                "analyze_data": self.analyze_data,
+                "generate_report": self.generate_report
+            }
+        )
+        
+        # Jargon agent
+        jargon_agent = ConversableAgent(
+            "jargon_agent",
+            system_message="You explain company-specific terminology and acronyms.",
+            llm_config={"config_list": self.config_list},
+            function_map={
+                "define_term": self.define_term,
+                "find_related_terms": self.find_related_terms
+            }
+        )
+        
+        return {
+            "orchestrator": orchestrator,
+            "search": search_agent,
+            "action": action_agent,
+            "analysis": analysis_agent,
+            "jargon": jargon_agent
+        }
+        
+    async def process_message(self, message: str, conversation_id: str, user_context: UserContext):
+        """Process user message with multi-agent collaboration"""
+        
+        # Load conversation context
+        context = await self.load_conversation_context(conversation_id)
+        
+        # Enhance message with context
+        enhanced_message = self._enhance_with_context(message, context, user_context)
+        
+        # Create group chat
+        groupchat = GroupChat(
+            agents=list(self.agents.values()),
+            messages=[],
+            max_round=10,
+            speaker_selection_method="auto"
+        )
+        
+        manager = GroupChatManager(groupchat=groupchat)
+        
+        # Start conversation
+        await self.agents["orchestrator"].initiate_chat(
+            manager,
+            message=enhanced_message
+        )
+        
+        # Extract final response
+        response = self._extract_response(groupchat.messages)
+        
+        # Save to conversation history
+        await self.save_conversation_turn(conversation_id, message, response)
+        
+        return response
+        
+    def _enhance_with_context(self, message: str, context: ConversationContext, user_context: UserContext):
+        """Enhance message with relevant context"""
+        return f"""
+        User Context:
+        - User: {user_context.user_name} ({user_context.role})
+        - Current Project: {user_context.current_project}
+        - Recent Activities: {', '.join(user_context.recent_activities[:5])}
+        
+        Conversation History (last 3 messages):
+        {self._format_recent_messages(context.messages[-3:])}
+        
+        Current Message: {message}
+        
+        Provide a helpful response considering the user's context and conversation history.
+        """
+3.3 Agent Implementation with Durable Functions
+# agents/base_agent.py
+from azure.durable_functions import DurableOrchestrationContext, Orchestrator
+from abc import ABC, abstractmethod
+import json
+
+class BaseAgent(ABC):
+    """Base class for all Rovo agents"""
+    
+    def __init__(self, agent_id: str, config: AgentConfig):
+        self.agent_id = agent_id
+        self.config = config
+        self.metrics = AgentMetrics()
+        
+    @abstractmethod
+    async def process_request(self, request: AgentRequest) -> AgentResponse:
+        """Process agent request"""
+        pass
+        
+    async def execute_with_monitoring(self, request: AgentRequest):
+        """Execute with metrics and monitoring"""
+        start_time = time.time()
+        
+        try:
+            # Log start
+            await self.log_activity(ActivityType.START, request)
+            
+            # Process request
+            response = await self.process_request(request)
+            
+            # Update metrics
+            self.metrics.successful_executions += 1
+            self.metrics.average_response_time = (
+                (self.metrics.average_response_time * (self.metrics.successful_executions - 1) + 
+                 (time.time() - start_time)) / self.metrics.successful_executions
+            )
+            
+            # Log success
+            await self.log_activity(ActivityType.SUCCESS, request, response)
+            
+            return response
+            
+        except Exception as e:
+            # Update failure metrics
+            self.metrics.failed_executions += 1
+            
+            # Log failure
+            await self.log_activity(ActivityType.FAILURE, request, error=str(e))
+            
+            raise

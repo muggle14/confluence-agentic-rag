@@ -7,9 +7,9 @@
 - [Step 3: Graph Representation](#step-3-graph-representation)
 - [Step 4: Indexing and Embeddings](#step-4-indexing-and-embeddings)
 - [Step 5: Agent Creation](#step-5-agent-creation)
-- [Step 6: UI Design](#step-6-ui-design)
-- [Step 7: Deployment & Management](#step-7-deployment--management)
-- [Step 8: Monitoring & Optimization](#step-8-monitoring--optimization)
+<!-- - [Step 6: UI Design](#step-6-ui-design) -->
+<!-- - [Step 7: Deployment & Management](#step-7-deployment--management)
+- [Step 8: Monitoring & Optimization](#step-8-monitoring--optimization) -->
 
 ---
 

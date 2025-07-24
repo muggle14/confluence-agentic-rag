@@ -1,0 +1,85 @@
+# Dockerfile.production
+# Optimized production Dockerfile for Azure Functions
+# Multi-stage build for smaller image size
+
+# Stage 1: Build dependencies
+FROM python:3.11-slim as builder
+
+WORKDIR /build
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+# Stage 2: Runtime image
+FROM mcr.microsoft.com/azure-functions/python:4-python3.11-slim
+
+# Set environment variables
+ENV AzureWebJobsScriptRoot=/home/site/wwwroot \
+    AzureFunctionsJobHost__Logging__Console__IsEnabled=true \
+    PYTHON_ENABLE_WORKER_EXTENSIONS=1 \
+    PYTHON_ISOLATE_WORKER_DEPENDENCIES=1 \
+    # Optimize Python
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    # Security
+    PYTHONHASHSEED=random
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Copy Python packages from builder
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
+
+# Set working directory
+WORKDIR /home/site/wwwroot
+
+# Copy function app files
+COPY host.json .
+COPY requirements.txt .
+
+# Copy Python files
+COPY api_service.py .
+COPY confluence_qa_orchestrator.py .
+COPY utils.py .
+
+# Copy any additional modules (if they exist)
+COPY --chown=1000:1000 *.py ./
+
+# Create non-root user for security
+RUN useradd -m -u 1000 azureuser \
+    && chown -R azureuser:azureuser /home/site/wwwroot
+
+# Security hardening
+RUN chmod -R 755 /home/site/wwwroot \
+    && find /home/site/wwwroot -type f -name "*.py" -exec chmod 644 {} \;
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:80/api/health || exit 1
+
+# Metadata
+ARG BUILD_DATE
+ARG VERSION
+LABEL maintainer="your-team@company.com" \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.version=$VERSION \
+      org.label-schema.description="Confluence Q&A Azure Functions" \
+      org.label-schema.schema-version="1.0"
+
+# Switch to non-root user
+USER azureuser
+
+# Azure Functions runtime will handle the entry point

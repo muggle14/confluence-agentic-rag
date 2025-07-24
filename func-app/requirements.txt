@@ -1,0 +1,6 @@
+azure-functions==1.18.0
+gremlinpython>=3.6.3
+python-dotenv==1.0.0
+networkx>=3.0
+pandas>=2.0.0
+tqdm>=4.64.0

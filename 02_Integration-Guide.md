@@ -23,26 +23,7 @@ This guide provides a comprehensive approach to implementing the Confluence Q&A 
 - Azure subscription with appropriate permissions
 - Access to Azure OpenAI Service
 
-#### Implementation Steps
-1. **Navigate to Azure Portal**
-   - Go to [Azure Portal](https://portal.azure.com)
-   - Search for "Azure OpenAI Service"
 
-2. **Create Azure OpenAI Service**
-   - Click "Create"
-   - Fill in required details:
-     - Subscription
-     - Resource group
-     - Region
-     - Service name
-   - Select pricing tier
-
-3. **Deploy Models**
-   - Deploy GPT-4 for text generation
-   - Deploy embedding models (e.g., text-embedding-ada-002)
-   - Configure model parameters and quotas
-
----
 
 ### Step 2: Data Preparation and Ingestion (Azure AI Foundry)
 
@@ -73,7 +54,6 @@ Define processing pipelines to parse JSON into structured formats:
 
 2. **Store Structured Data**
    - JSON format for flexibility
-   - Parquet format for analytics
    - Metadata enrichment
 
 ---

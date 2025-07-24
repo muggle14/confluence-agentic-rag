@@ -1,0 +1,127 @@
+{
+  "pageId": "1343493",
+  "title": "Knowledge Materials",
+  "spaceKey": "observability",
+  "spaceName": "Observability",
+  "updated": "2025-06-23T21:06:05.454Z",
+  "breadcrumb": [
+    "Observability",
+    "Observability",
+    "Observability Programme!"
+  ],
+  "content": {
+    "html": "<h1><em>Knowledge Materials for SynthTrace Onboarding</em></h1><p /><p>This page helps new users quickly learn and use SynthTrace.</p><table data-table-width=\"760\" data-layout=\"default\" ac:local-id=\"97e34e34-89c8-494d-b5dd-f5eb59955d10\"><tbody><tr><td><p>Activity</p></td><td><p>Description</p></td><td><p>Resource Link</p></td></tr><tr><td><p><strong>Core Training (Video)</strong></p></td><td><p>Short videos introducing each module, including demo dashboards.</p></td><td><p>📺 <a href=\"#\">Core Training Video Series</a></p></td></tr><tr><td><p><strong>Responsibility Matrix (RACI)</strong></p></td><td><p>Who does what? Aligns teams to monitoring roles and handoffs.</p></td><td><p>📄 <a href=\"#\">View Matrix</a></p></td></tr><tr><td><p><strong>Change Templates (ServiceNow)</strong></p></td><td><p>Use these templates to submit SynthTrace change requests.</p></td><td><p>🧾 <a href=\"#\">Download Templates</a></p></td></tr><tr><td><p><strong>FAQs</strong></p></td><td><p>Common questions from developers, ops teams, and security folks.</p></td><td><p>❓ <a href=\"#\">Go to FAQs</a></p></td></tr><tr><td><p><strong>Glossary</strong></p></td><td><p>Terms like &ldquo;Span,&rdquo; &ldquo;Node,&rdquo; &ldquo;Replay Session,&rdquo; explained simply.</p></td><td><p>📘 <a href=\"#\">Read Glossary</a></p></td></tr><tr><td><p><strong>Security Process (Synthetic)</strong></p></td><td><p>Steps for raising an incident when SynthTrace detects a potential vulnerability.</p></td><td><p>🔐 <a href=\"#\">Incident SOP</a></p></td></tr></tbody></table>",
+    "text": "Knowledge Materials for SynthTrace Onboarding This page helps new users quickly learn and use SynthTrace. Activity Description Resource Link Core Training (Video) Short videos introducing each module, including demo dashboards. 📺 Core Training Video Series Responsibility Matrix (RACI) Who does what? Aligns teams to monitoring roles and handoffs. 📄 View Matrix Change Templates (ServiceNow) Use these templates to submit SynthTrace change requests. 🧾 Download Templates FAQs Common questions from developers, ops teams, and security folks. ❓ Go to FAQs Glossary Terms like “Span,” “Node,” “Replay Session,” explained simply. 📘 Read Glossary Security Process (Synthetic) Steps for raising an incident when SynthTrace detects a potential vulnerability. 🔐 Incident SOP",
+    "markdown": "# _Knowledge Materials for SynthTrace Onboarding_\n\nThis page helps new users quickly learn and use SynthTrace.\n\nActivity| Description| Resource Link  \n---|---|---  \n**Core Training (Video)**|  Short videos introducing each module, including demo dashboards.| 📺 Core Training Video Series  \n**Responsibility Matrix (RACI)**|  Who does what? Aligns teams to monitoring roles and handoffs.| 📄 View Matrix  \n**Change Templates (ServiceNow)**|  Use these templates to submit SynthTrace change requests.| 🧾 Download Templates  \n**FAQs**|  Common questions from developers, ops teams, and security folks.| ❓ Go to FAQs  \n**Glossary**|  Terms like \"Span,\" \"Node,\" \"Replay Session,\" explained simply.| 📘 Read Glossary  \n**Security Process (Synthetic)**|  Steps for raising an incident when SynthTrace detects a potential vulnerability.| 🔐 Incident SOP"
+  },
+  "sections": [
+    {
+      "order": 1,
+      "heading": "Knowledge Materials for SynthTrace Onboarding",
+      "level": 1,
+      "content": "This page helps new users quickly learn and use SynthTrace.\nActivity\nDescription\nResource Link\nCore Training (Video)\nShort videos introducing each module, including demo dashboards.\n📺 Core Training Video Series\nResponsibility Matrix (RACI)\nWho does what? Aligns teams to monitoring roles and handoffs.\n📄 View Matrix\nChange Templates (ServiceNow)\nUse these templates to submit SynthTrace change requests.\n🧾 Download Templates\nFAQs\nCommon questions from developers, ops teams, and security folks.\n❓ Go to FAQs\nGlossary\nTerms like “Span,” “Node,” “Replay Session,” explained simply.\n📘 Read Glossary\nSecurity Process (Synthetic)\nSteps for raising an incident when SynthTrace detects a potential vulnerability.\n🔐 Incident SOP\n"
+    }
+  ],
+  "tables": [
+    {
+      "order": 1,
+      "headers": [
+        "Activity",
+        "Description",
+        "Resource Link"
+      ],
+      "rows": [
+        [
+          "Core Training (Video)",
+          "Short videos introducing each module, including demo dashboards.",
+          "📺 Core Training Video Series"
+        ],
+        [
+          "Responsibility Matrix (RACI)",
+          "Who does what? Aligns teams to monitoring roles and handoffs.",
+          "📄 View Matrix"
+        ],
+        [
+          "Change Templates (ServiceNow)",
+          "Use these templates to submit SynthTrace change requests.",
+          "🧾 Download Templates"
+        ],
+        [
+          "FAQs",
+          "Common questions from developers, ops teams, and security folks.",
+          "❓ Go to FAQs"
+        ],
+        [
+          "Glossary",
+          "Terms like “Span,” “Node,” “Replay Session,” explained simply.",
+          "📘 Read Glossary"
+        ],
+        [
+          "Security Process (Synthetic)",
+          "Steps for raising an incident when SynthTrace detects a potential vulnerability.",
+          "🔐 Incident SOP"
+        ]
+      ],
+      "raw_html": "<table ac:local-id=\"97e34e34-89c8-494d-b5dd-f5eb59955d10\" data-layout=\"default\" data-table-width=\"760\"><tbody><tr><td><p>Activity</p></td><td><p>Description</p></td><td><p>Resource Link</p></td></tr><tr><td><p><strong>Core Training (Video)</strong></p></td><td><p>Short videos introducing each module, including demo dashboards.</p></td><td><p>📺 <a href=\"#\">Core Training Video Series</a></p></td></tr><tr><td><p><strong>Responsibility Matrix (RACI)</strong></p></td><td><p>Who does what? Aligns teams to monitoring roles and handoffs.</p></td><td><p>📄 <a href=\"#\">View Matrix</a></p></td></tr><tr><td><p><strong>Change Templates (ServiceNow)</strong></p></td><td><p>Use these templates to submit SynthTrace change requests.</p></td><td><p>🧾 <a href=\"#\">Download Templates</a></p></td></tr><tr><td><p><strong>FAQs</strong></p></td><td><p>Common questions from developers, ops teams, and security folks.</p></td><td><p>❓ <a href=\"#\">Go to FAQs</a></p></td></tr><tr><td><p><strong>Glossary</strong></p></td><td><p>Terms like “Span,” “Node,” “Replay Session,” explained simply.</p></td><td><p>📘 <a href=\"#\">Read Glossary</a></p></td></tr><tr><td><p><strong>Security Process (Synthetic)</strong></p></td><td><p>Steps for raising an incident when SynthTrace detects a potential vulnerability.</p></td><td><p>🔐 <a href=\"#\">Incident SOP</a></p></td></tr></tbody></table>",
+      "caption": "",
+      "text": "Activity | Description | Resource Link\n--------------------------------------\nCore Training (Video) | Short videos introducing each module, including demo dashboards. | 📺 Core Training Video Series\nResponsibility Matrix (RACI) | Who does what? Aligns teams to monitoring roles and handoffs. | 📄 View Matrix\nChange Templates (ServiceNow) | Use these templates to submit SynthTrace change requests. | 🧾 Download Templates\nFAQs | Common questions from developers, ops teams, and security folks. | ❓ Go to FAQs\nGlossary | Terms like “Span,” “Node,” “Replay Session,” explained simply. | 📘 Read Glossary\nSecurity Process (Synthetic) | Steps for raising an incident when SynthTrace detects a potential vulnerability. | 🔐 Incident SOP"
+    }
+  ],
+  "links": [
+    {
+      "order": 1,
+      "text": "Core Training Video Series",
+      "url": "#",
+      "type": "anchor",
+      "internal_page_id": null
+    },
+    {
+      "order": 2,
+      "text": "View Matrix",
+      "url": "#",
+      "type": "anchor",
+      "internal_page_id": null
+    },
+    {
+      "order": 3,
+      "text": "Download Templates",
+      "url": "#",
+      "type": "anchor",
+      "internal_page_id": null
+    },
+    {
+      "order": 4,
+      "text": "Go to FAQs",
+      "url": "#",
+      "type": "anchor",
+      "internal_page_id": null
+    },
+    {
+      "order": 5,
+      "text": "Read Glossary",
+      "url": "#",
+      "type": "anchor",
+      "internal_page_id": null
+    },
+    {
+      "order": 6,
+      "text": "Incident SOP",
+      "url": "#",
+      "type": "anchor",
+      "internal_page_id": null
+    }
+  ],
+  "images": [],
+  "processing": {
+    "timestamp": "2025-06-25T16:24:47.812253",
+    "pipeline_version": "1.0",
+    "phase": "1_comprehensive",
+    "stats": {
+      "sections_count": 1,
+      "tables_count": 1,
+      "links_count": 6,
+      "images_count": 0,
+      "text_length": 766
+    }
+  }
+}

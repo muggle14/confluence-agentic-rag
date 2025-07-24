@@ -1,0 +1,160 @@
+{
+  "name": "confluence-graph-skillset",
+  "description": "Consolidated skillset with content splitting, embeddings, and graph enrichment",
+  "skills": [
+    {
+      "@odata.type": "#Microsoft.Skills.Text.SplitSkill",
+      "name": "SplitSkill",
+      "description": "Split content into chunks",
+      "context": "/document",
+      "defaultLanguageCode": "en",
+      "textSplitMode": "pages",
+      "maximumPageLength": 2000,
+      "inputs": [
+        {
+          "name": "text",
+          "source": "/document/body/storage/value"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "textItems",
+          "targetName": "pages"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "DocumentShaper",
+      "description": "Flatten page metadata into a simple object",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "page_id",
+          "source": "/document/id"
+        },
+        {
+          "name": "title",
+          "source": "/document/title"
+        },
+        {
+          "name": "content",
+          "source": "/document/body/storage/value"
+        },
+        {
+          "name": "space_key",
+          "source": "/document/space/key"
+        },
+        {
+          "name": "url",
+          "source": "/document/_links/webui"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "shaped_document"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Text.AzureOpenAIEmbeddingSkill",
+      "name": "ContentEmbeddingSkill",
+      "description": "Generate embeddings for content chunks",
+      "context": "/document/pages/*",
+      "resourceUri": "{{AZURE_OPENAI_ENDPOINT}}",
+      "apiKey": "{{AZURE_OPENAI_KEY}}",
+      "deploymentId": "text-embedding-ada-002",
+      "inputs": [
+        {
+          "name": "text",
+          "source": "/document/pages/*"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "embedding",
+          "targetName": "contentVector"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Text.AzureOpenAIEmbeddingSkill",
+      "name": "TitleEmbeddingSkill",
+      "description": "Generate embeddings for title",
+      "context": "/document",
+      "resourceUri": "{{AZURE_OPENAI_ENDPOINT}}",
+      "apiKey": "{{AZURE_OPENAI_KEY}}",
+      "deploymentId": "text-embedding-ada-002",
+      "inputs": [
+        {
+          "name": "text",
+          "source": "/document/title"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "embedding",
+          "targetName": "titleVector"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
+      "name": "GraphEnrichmentSkill",
+      "description": "Enrich documents with graph data from Cosmos DB",
+      "context": "/document",
+      "uri": "{{GRAPH_ENRICHMENT_FUNCTION_URL}}",
+      "httpMethod": "POST",
+      "timeout": "PT30S",
+      "batchSize": 1,
+      "httpHeaders": {
+        "x-functions-key": "{{GRAPH_ENRICHMENT_FUNCTION_KEY}}"
+      },
+      "inputs": [
+        {
+          "name": "page_id",
+          "source": "/document/shaped_document/page_id"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "parent_page_id",
+          "targetName": "parent_page_id"
+        },
+        {
+          "name": "hierarchy_depth",
+          "targetName": "hierarchy_depth"
+        },
+        {
+          "name": "child_count",
+          "targetName": "child_count"
+        },
+        {
+          "name": "graph_centrality_score",
+          "targetName": "graph_centrality_score"
+        },
+        {
+          "name": "graph_metadata",
+          "targetName": "graph_metadata"
+        },
+        {
+          "name": "ancestors",
+          "targetName": "ancestors"
+        },
+        {
+          "name": "childrenIds",
+          "targetName": "childrenIds"
+        },
+        {
+          "name": "adjacentIds",
+          "targetName": "adjacentIds"
+        },
+        {
+          "name": "depth",
+          "targetName": "depth"
+        }
+      ]
+    }
+  ]
+}

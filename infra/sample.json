@@ -1,0 +1,241 @@
+{
+  "id": "1343493",
+  "type": "page",
+  "ari": "ari:cloud:confluence:c8359b78-47bc-47d7-b2d9-7feccf164afa:page/1343493",
+  "status": "current",
+  "title": "Knowledge Materials",
+  "space": {
+    "id": 1376260,
+    "ari": "ari:cloud:confluence:c8359b78-47bc-47d7-b2d9-7feccf164afa:space/1376260",
+    "key": "observability",
+    "alias": "observability",
+    "name": "Observability",
+    "type": "knowledge_base",
+    "status": "current",
+    "_expandable": {
+      "settings": "/rest/api/space/observability/settings",
+      "metadata": "",
+      "identifiers": "",
+      "roles": "",
+      "icon": "",
+      "typeSettings": "",
+      "description": "",
+      "history": "",
+      "operations": "",
+      "lookAndFeel": "/rest/api/settings/lookandfeel?spaceKey=observability",
+      "permissions": "",
+      "theme": "/rest/api/space/observability/theme",
+      "homepage": "/rest/api/content/1376510"
+    },
+    "_links": {
+      "webui": "/spaces/observability",
+      "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/space/observability"
+    }
+  },
+  "history": {
+    "latest": true,
+    "createdBy": {
+      "type": "known",
+      "accountId": "70121:9d92d5ea-5972-4bda-98a7-1f1354f96d36",
+      "accountType": "atlassian",
+      "email": "h.chaturvedi14@gmail.com",
+      "publicName": "Himanshu Chaturvedi",
+      "profilePicture": {
+        "path": "/wiki/aa-avatar/70121:9d92d5ea-5972-4bda-98a7-1f1354f96d36",
+        "width": 48,
+        "height": 48,
+        "isDefault": false
+      },
+      "displayName": "Himanshu Chaturvedi",
+      "isExternalCollaborator": false,
+      "isGuest": false,
+      "locale": "en_US",
+      "accountStatus": "active",
+      "_expandable": {
+        "operations": "",
+        "personalSpace": ""
+      },
+      "_links": {
+        "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/user?accountId=70121:9d92d5ea-5972-4bda-98a7-1f1354f96d36"
+      }
+    },
+    "createdDate": "2025-06-23T13:27:09.414Z",
+    "_expandable": {
+      "lastUpdated": "",
+      "previousVersion": "",
+      "lastOwnedBy": "",
+      "contributors": "",
+      "nextVersion": "",
+      "ownedBy": ""
+    },
+    "_links": {
+      "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/content/1343493/history"
+    }
+  },
+  "version": {
+    "by": {
+      "type": "known",
+      "accountId": "70121:9d92d5ea-5972-4bda-98a7-1f1354f96d36",
+      "accountType": "atlassian",
+      "email": "h.chaturvedi14@gmail.com",
+      "publicName": "Himanshu Chaturvedi",
+      "profilePicture": {
+        "path": "/wiki/aa-avatar/70121:9d92d5ea-5972-4bda-98a7-1f1354f96d36",
+        "width": 48,
+        "height": 48,
+        "isDefault": false
+      },
+      "displayName": "Himanshu Chaturvedi",
+      "isExternalCollaborator": false,
+      "isGuest": false,
+      "locale": "en_US",
+      "accountStatus": "active",
+      "_expandable": {
+        "operations": "",
+        "personalSpace": ""
+      },
+      "_links": {
+        "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/user?accountId=70121:9d92d5ea-5972-4bda-98a7-1f1354f96d36"
+      }
+    },
+    "when": "2025-06-23T21:06:05.454Z",
+    "friendlyWhen": "Jun 23, 2025",
+    "message": "",
+    "number": 1,
+    "minorEdit": false,
+    "ncsStepVersion": "30",
+    "ncsStepVersionSource": "ncs-ack",
+    "confRev": "confluence$content$1343493.11",
+    "contentTypeModified": false,
+    "_expandable": {
+      "collaborators": "",
+      "content": "/rest/api/content/1343493"
+    },
+    "_links": {
+      "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/content/1343493/version/1"
+    }
+  },
+  "ancestors": [
+    {
+      "id": "1376510",
+      "type": "page",
+      "ari": "ari:cloud:confluence:c8359b78-47bc-47d7-b2d9-7feccf164afa:page/1376510",
+      "status": "current",
+      "title": "Observability",
+      "macroRenderedOutput": {},
+      "extensions": {
+        "position": 293
+      },
+      "_expandable": {
+        "container": "/rest/api/space/observability",
+        "metadata": "",
+        "restrictions": "/rest/api/content/1376510/restriction/byOperation",
+        "history": "/rest/api/content/1376510/history",
+        "body": "",
+        "version": "",
+        "descendants": "/rest/api/content/1376510/descendant",
+        "space": "/rest/api/space/observability",
+        "childTypes": "",
+        "schedulePublishInfo": "",
+        "operations": "",
+        "schedulePublishDate": "",
+        "children": "/rest/api/content/1376510/child",
+        "ancestors": "",
+        "draftVersion": ""
+      },
+      "_links": {
+        "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/content/1376510",
+        "tinyui": "/x/-gAV",
+        "editui": "/pages/resumedraft.action?draftId=1376510",
+        "webui": "/spaces/observability/overview",
+        "edituiv2": "/spaces/observability/pages/edit-v2/1376510"
+      }
+    },
+    {
+      "id": "1376560",
+      "type": "page",
+      "ari": "ari:cloud:confluence:c8359b78-47bc-47d7-b2d9-7feccf164afa:page/1376560",
+      "status": "current",
+      "title": "Observability Programme!",
+      "macroRenderedOutput": {},
+      "extensions": {
+        "position": 1513
+      },
+      "_expandable": {
+        "container": "/rest/api/space/observability",
+        "metadata": "",
+        "restrictions": "/rest/api/content/1376560/restriction/byOperation",
+        "history": "/rest/api/content/1376560/history",
+        "body": "",
+        "version": "",
+        "descendants": "/rest/api/content/1376560/descendant",
+        "space": "/rest/api/space/observability",
+        "childTypes": "",
+        "schedulePublishInfo": "",
+        "operations": "",
+        "schedulePublishDate": "",
+        "children": "/rest/api/content/1376560/child",
+        "ancestors": "",
+        "draftVersion": ""
+      },
+      "_links": {
+        "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/content/1376560",
+        "tinyui": "/x/MAEV",
+        "editui": "/pages/resumedraft.action?draftId=1376560",
+        "webui": "/spaces/observability/pages/1376560/Observability+Programme",
+        "edituiv2": "/spaces/observability/pages/edit-v2/1376560"
+      }
+    }
+  ],
+  "macroRenderedOutput": {},
+  "body": {
+    "storage": {
+      "value": "<h1><em>Knowledge Materials for SynthTrace Onboarding</em></h1><p /><p>This page helps new users quickly learn and use SynthTrace.</p><table data-table-width=\"760\" data-layout=\"default\" ac:local-id=\"97e34e34-89c8-494d-b5dd-f5eb59955d10\"><tbody><tr><td><p>Activity</p></td><td><p>Description</p></td><td><p>Resource Link</p></td></tr><tr><td><p><strong>Core Training (Video)</strong></p></td><td><p>Short videos introducing each module, including demo dashboards.</p></td><td><p>📺 <a href=\"#\">Core Training Video Series</a></p></td></tr><tr><td><p><strong>Responsibility Matrix (RACI)</strong></p></td><td><p>Who does what? Aligns teams to monitoring roles and handoffs.</p></td><td><p>📄 <a href=\"#\">View Matrix</a></p></td></tr><tr><td><p><strong>Change Templates (ServiceNow)</strong></p></td><td><p>Use these templates to submit SynthTrace change requests.</p></td><td><p>🧾 <a href=\"#\">Download Templates</a></p></td></tr><tr><td><p><strong>FAQs</strong></p></td><td><p>Common questions from developers, ops teams, and security folks.</p></td><td><p>❓ <a href=\"#\">Go to FAQs</a></p></td></tr><tr><td><p><strong>Glossary</strong></p></td><td><p>Terms like &ldquo;Span,&rdquo; &ldquo;Node,&rdquo; &ldquo;Replay Session,&rdquo; explained simply.</p></td><td><p>📘 <a href=\"#\">Read Glossary</a></p></td></tr><tr><td><p><strong>Security Process (Synthetic)</strong></p></td><td><p>Steps for raising an incident when SynthTrace detects a potential vulnerability.</p></td><td><p>🔐 <a href=\"#\">Incident SOP</a></p></td></tr></tbody></table>",
+      "representation": "storage",
+      "embeddedContent": [],
+      "_expandable": {
+        "content": "/rest/api/content/1343493"
+      }
+    },
+    "_expandable": {
+      "editor": "",
+      "atlas_doc_format": "",
+      "view": "",
+      "export_view": "",
+      "styled_view": "",
+      "dynamic": "",
+      "editor2": "",
+      "anonymous_export_view": ""
+    }
+  },
+  "extensions": {
+    "position": 768
+  },
+  "_expandable": {
+    "childTypes": "",
+    "container": "/rest/api/space/observability",
+    "schedulePublishInfo": "",
+    "metadata": "",
+    "operations": "",
+    "schedulePublishDate": "",
+    "children": "/rest/api/content/1343493/child",
+    "restrictions": "/rest/api/content/1343493/restriction/byOperation",
+    "draftVersion": "",
+    "descendants": "/rest/api/content/1343493/descendant"
+  },
+  "_links": {
+    "self": "https://hchaturvedi14.atlassian.net/wiki/rest/api/content/1343493",
+    "tinyui": "/x/BYAU",
+    "editui": "/pages/resumedraft.action?draftId=1343493",
+    "webui": "/spaces/observability/pages/1343493/Knowledge+Materials",
+    "edituiv2": "/spaces/observability/pages/edit-v2/1343493"
+  },
+  "ingestion_timestamp": "2025-06-25T14:39:47.678631",
+  "ingestion_metadata": {
+    "pipeline_version": "1.0",
+    "source": "confluence_api",
+    "incremental_update": false,
+    "manual_trigger": true,
+    "test_run": true
+  }
+}

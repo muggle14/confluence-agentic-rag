@@ -11,6 +11,84 @@ from pathlib import Path
 
 
 @dataclass
+class SearchConfig:
+    """Configuration for Azure AI Search and Function App integration"""
+    
+    # Azure AI Search settings
+    search_service: str
+    search_key: str
+    search_endpoint: str
+    
+    # Azure OpenAI settings
+    azure_openai_endpoint: str
+    azure_openai_key: str
+    
+    # Function App settings (with defaults)
+    # Always load from ../.env or ../env file for defaults
+    search_index: str = os.environ.get('SEARCH_INDEX_V2', 'confluence-graph-embeddings-v2')
+    azure_openai_deployment: str = os.environ.get('AZURE_OPENAI_DEPLOYMENT', 'text-embedding-ada-002')
+    function_app_name: str = os.environ.get('FUNCTION_APP', 'func-rag-graph-enrich')
+    function_key: Optional[str] = os.environ.get('GRAPH_ENRICHMENT_FUNCTION_KEY')
+    function_endpoint: Optional[str] = os.environ.get('FUNCTION_ENDPOINT')
+    resource_group: str = os.environ.get('RESOURCE_GROUP', 'rg-rag-confluence')
+    
+    @classmethod
+    def from_environment(cls, env_file: Optional[str] = None) -> 'SearchConfig':
+        """Create search configuration from environment variables"""
+        
+        # Load environment file if specified
+        if env_file and os.path.exists(env_file):
+            GraphConfig._load_env_file(env_file)
+        else:
+            # Try to find environment file
+            env_files = [
+                '../.env', '../env', '.env', 'env'
+            ]
+            for env_path in env_files:
+                if os.path.exists(env_path):
+                    GraphConfig._load_env_file(env_path)
+                    break
+        
+        # Extract settings
+        search_service = os.environ.get('SEARCH_SERVICE', 'srch-rag-conf')
+        search_key = os.environ.get('SEARCH_KEY', '')
+        resource_group = os.environ.get('RESOURCE_GROUP') or os.environ.get('AZ_RESOURCE_GROUP', 'rg-rag-confluence')
+        
+        # Handle Azure OpenAI key variations
+        azure_openai_key = os.environ.get('AZURE_OPENAI_KEY') or os.environ.get('AZURE_OPENAI_API_KEY', '')
+        
+        # Build endpoints if not provided
+        search_endpoint = os.environ.get('SEARCH_ENDPOINT', f"https://{search_service}.search.windows.net")
+        azure_openai_endpoint = os.environ.get('AZURE_OPENAI_ENDPOINT', 'https://aoai-rag-confluence.openai.azure.com/')
+        
+        # Function app settings
+        function_app_name = os.environ.get('FUNCTION_APP', 'func-rag-graph-enrich')
+        function_key = os.environ.get('GRAPH_ENRICHMENT_FUNCTION_KEY', '4Rj1HTV7aTRRCUBIHdbAdpZu9VZOMKBgL4OGDb6lFTt1AzFu0ADAbg==')
+        function_endpoint = f"https://{function_app_name}.azurewebsites.net/api/graph_enrichment_skill"
+        
+        return cls(
+            search_service=search_service,
+            search_key=search_key,
+            search_endpoint=search_endpoint,
+            search_index=os.environ.get('SEARCH_INDEX_V2', 'confluence-graph-embeddings-v2'),
+            azure_openai_endpoint=azure_openai_endpoint,
+            azure_openai_key=azure_openai_key,
+            azure_openai_deployment=os.environ.get('AZURE_OPENAI_DEPLOYMENT', 'text-embedding-ada-002'),
+            function_app_name=function_app_name,
+            function_key=function_key,
+            function_endpoint=function_endpoint,
+            resource_group=resource_group
+        )
+    
+    def get_function_url(self) -> str:
+        """Get the full function URL with key if available"""
+        url = self.function_endpoint
+        if self.function_key:
+            url += f"?code={self.function_key}"
+        return url
+
+
+@dataclass
 class GraphConfig:
     """Configuration container for graph population operations"""
     
@@ -52,9 +130,7 @@ class GraphConfig:
         else:
             # Try to find environment file
             env_files = [
-                '.env', '.env.updated', '../.env', '../.env.updated',
-                'infra/.env.graph', 'infra/.env.updated', 'infra/.env',
-                'notebooks/.env', 'notebooks/.env.updated'
+                '../.env', '../env', '.env', 'env'
             ]
             for env_path in env_files:
                 if os.path.exists(env_path):

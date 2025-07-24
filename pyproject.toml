@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "confluence-qa-common"
+version = "1.0.0"
+description = "Common modules for Confluence Q&A System"
+authors = [
+    {name = "Confluence Q&A Team"}
+]
+requires-python = ">=3.8"
+dependencies = [
+    "azure-storage-blob",
+    "gremlinpython",
+    "python-dotenv==1.0.0",
+    "networkx",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "flake8",
+]
+
+[tool.setuptools.packages.find]
+where = ["func-app"]
+include = ["common*"] 

@@ -1,0 +1,38 @@
+{
+  "name": "confluence-graph-indexer",
+  "dataSourceName": "confluence-blob-datasource",
+  "skillsetName": "confluence-graph-skillset",
+  "targetIndexName": "confluence-graph-embeddings-v2",
+  "parameters": {
+    "maxFailedItems": -1,
+    "maxFailedItemsPerBatch": -1,
+    "configuration": {
+      "dataToExtract": "contentAndMetadata",
+      "parsingMode": "json"
+    }
+  },
+
+  "fieldMappings": [
+    { "sourceFieldName": "page_id",      "targetFieldName": "page_id" },
+    { "sourceFieldName": "page_id",      "targetFieldName": "id" },          
+    { "sourceFieldName": "title",        "targetFieldName": "title" },
+    { "sourceFieldName": "url",          "targetFieldName": "url" },
+    { "sourceFieldName": "space_key",    "targetFieldName": "space_key" },
+    { "sourceFieldName": "spaceId",      "targetFieldName": "spaceId" },
+    { "sourceFieldName": "ancestor_ids",  "targetFieldName": "ancestor_ids" },
+    { "sourceFieldName": "hierarchy_depth",        "targetFieldName": "hierarchy_depth" }
+  ],
+
+  "outputFieldMappings": [
+    { "sourceFieldName": "/document/chunks/*",          "targetFieldName": "chunk_text" },
+
+    { "sourceFieldName": "/document/contentVector",     "targetFieldName": "content_vector" },
+    { "sourceFieldName": "/document/titleVector",       "targetFieldName": "title_vector" },
+
+    { "sourceFieldName": "/document/parent_page_id",          "targetFieldName": "parent_page_id" },
+    { "sourceFieldName": "/document/hierarchy_depth",         "targetFieldName": "hierarchy_depth" },
+    { "sourceFieldName": "/document/children_ids",            "targetFieldName": "children_ids" },
+    { "sourceFieldName": "/document/adjacent_ids",            "targetFieldName": "adjacent_ids" },
+    { "sourceFieldName": "/document/graph_centrality_score",  "targetFieldName": "graph_centrality_score" }
+  ]
+}
