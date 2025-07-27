@@ -1,0 +1,99 @@
+# .dockerignore
+# Exclude files from Docker build context
+
+# Local settings and environment
+local.settings.json
+.env
+.env.*
+*.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Azure Functions
+.funcignore
+.azure/
+.vscode/
+bin/
+obj/
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+docs/
+*.md
+
+# Tests
+tests/
+test/
+*_test.py
+test_*.py
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.log
+*.pot
+*.mo
+.build/
+dist/
+build/
+*.egg-info/
+
+# Data files
+data/
+*.csv
+*.json
+*.xlsx
+
+# Deployment
+deployment/
+scripts/
+*.sh
+*.ps1
+*.bicep
+azuredeploy.json
+docker-compose.yml
+docker-compose.*.yml
+
+# Node (if any)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+temp

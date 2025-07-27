@@ -1,0 +1,343 @@
+# production-config.yaml
+# Production configuration for Confluence Q&A system with balanced performance
+
+# System Performance Settings - Prioritizing Accuracy
+performance:
+  # Reasonable timeout for quality responses
+  total_timeout_seconds: 10.0
+  
+  # Agent-specific timeouts (sufficient for accurate processing)
+  agent_timeouts:
+    query_analyser: 1.0
+    decomposer: 2.0
+    path_planner: 1.5
+    retriever: 3.0
+    reranker: 2.0
+    synthesiser: 3.0
+    verifier: 2.0
+    clarifier: 1.0
+    tree_builder: 2.0
+  
+  # Query processing limits (balanced for accuracy)
+  limits:
+    max_subquestions: 5         # Allow complex decomposition
+    max_search_results: 15      # Comprehensive results
+    max_search_hops: 3          # Full graph traversal
+    max_parallel_agents: 5      # Good parallelism
+    max_context_chunks: 20      # Full context
+    max_response_tokens: 500    # Complete responses
+    max_tree_depth: 5           # Full tree visualization
+
+# Azure Service Configuration
+azure:
+  # Cognitive Search - Balanced for accuracy and speed
+  search:
+    mode: "comprehensive"  # Options: fast, balanced, comprehensive
+    search_modes:
+      - vector_search: 
+          k: 15
+          timeout_ms: 1000
+      - keyword_search:
+          mode: "all"  # More accurate than "any"
+          top: 15
+          timeout_ms: 800
+      - semantic_search:
+          enabled: true
+          configuration: "default"
+          timeout_ms: 1000
+    cache_ttl_seconds: 3600
+    include_highlights: true
+    include_facets: true
+    
+  # Cosmos DB - Optimized for reliability
+  cosmos:
+    connection_mode: "Direct"  # Better throughput
+    request_timeout_seconds: 5
+    max_connections: 100
+    enable_endpoint_discovery: true
+    consistency_level: "Session"
+    
+  # OpenAI - Full capability
+  openai:
+    deployment: "gpt-4o"
+    max_tokens: 500         # Full responses
+    temperature: 0
+    timeout_seconds: 5
+    max_retries: 3
+    stream_enabled: true
+    embeddings:
+      batch_size: 16
+      cache_enabled: true
+
+# Caching Configuration - Performance without compromising accuracy
+cache:
+  # Response cache (safe optimization)
+  response_cache:
+    enabled: true
+    ttl_seconds: 3600
+    max_size: 1000
+    
+  # Embedding cache (safe optimization)
+  embedding_cache:
+    enabled: true
+    ttl_seconds: 86400
+    max_size: 5000
+    preload_common: true
+    common_queries:
+      - "password reset"
+      - "single sign on"
+      - "deployment guide"
+      - "authentication"
+      - "api documentation"
+    
+  # Agent response cache (safe optimization)
+  agent_cache:
+    enabled: true
+    ttl_seconds: 1800
+    max_size: 500
+    
+  # Search result cache (safe optimization)
+  search_cache:
+    enabled: true
+    ttl_seconds: 600
+    max_size: 200
+
+# Query Pattern Matching - With Verification
+patterns:
+  enabled: true
+  require_verification: true    # Always verify pattern matches
+  confidence_threshold: 0.95
+  patterns_file: "verified_patterns.json"
+  
+  # Common patterns with verified responses
+  common_patterns:
+    - pattern: "(reset|change).*password"
+      category: "password_reset"
+      response_template: "password_reset.md"
+      sources: ["page-auth-001", "page-security-guide"]
+      
+    - pattern: "(sso|single sign)"
+      category: "sso_setup"
+      response_template: "sso_setup.md"
+      sources: ["page-sso-guide", "page-auth-providers"]
+      
+    - pattern: "(deploy|deployment)"
+      category: "deployment"
+      response_template: "deployment_guide.md"
+      sources: ["page-deploy-001", "page-ci-cd-guide"]
+
+# AutoGen Agent Configuration - Balanced
+autogen:
+  # LLM configuration for all agents
+  llm_config:
+    model: "gpt-4o"
+    temperature: 0
+    max_tokens: 500         # Full responses
+    top_p: 0.1
+    frequency_penalty: 0
+    presence_penalty: 0
+    seed: 42               # Deterministic responses
+    cache_seed: 42
+    
+  # Agent pool settings (performance optimization)
+  agent_pool:
+    enabled: true
+    size: 5
+    prewarm: true
+    
+  # Conversation settings
+  max_consecutive_auto_reply: 1
+  human_input_mode: "NEVER"
+
+# Quality Assurance Settings
+quality:
+  # Verification requirements
+  verification:
+    enabled: true
+    risk_thresholds:
+      low: 0.1
+      medium: 0.3
+      high: 0.5
+    min_confidence: 0.7
+    
+  # Answer completeness
+  completeness:
+    min_sources: 2
+    require_citations: true
+    citation_accuracy: 1.0
+    
+  # Thinking process
+  thinking_process:
+    enabled: true
+    include_in_response: true
+    log_to_cosmos: true
+
+# Monitoring & Alerting
+monitoring:
+  # Performance thresholds (balanced)
+  thresholds:
+    response_time_warning_ms: 8000
+    response_time_critical_ms: 12000
+    p95_latency_target_ms: 10000
+    min_confidence_score: 0.7
+    max_verification_failures: 5
+    
+  # Metrics collection
+  metrics:
+    enabled: true
+    sample_rate: 1.0
+    track_quality_metrics: true
+    
+  # Alerts (focus on quality)
+  alerts:
+    - name: "low_confidence"
+      condition: "confidence < 0.7"
+      threshold: 10
+      window_minutes: 5
+      action: "investigate_quality"
+      
+    - name: "verification_failures"
+      condition: "verification_failed"
+      threshold: 5
+      window_minutes: 10
+      action: "review_responses"
+      
+    - name: "missing_citations"
+      condition: "citations_missing"
+      threshold: 3
+      window_minutes: 5
+      action: "review_synthesis"
+      
+    - name: "slow_response"
+      condition: "response_time > 12000"
+      threshold: 5
+      window_minutes: 5
+      action: "investigate_performance"
+
+# Fallback Strategies - Comprehensive
+fallback:
+  # When to use fallback responses
+  triggers:
+    - timeout_exceeded
+    - verification_failed
+    - low_confidence
+    
+  # Fallback behavior
+  behavior:
+    attempt_partial_answer: true
+    include_related_docs: true
+    suggest_alternatives: true
+    provide_breadcrumb: true
+
+# Load Management
+load_management:
+  # Circuit breaker settings
+  circuit_breaker:
+    enabled: true
+    failure_threshold: 10
+    timeout_seconds: 60
+    half_open_requests: 3
+    
+  # Rate limiting
+  rate_limiting:
+    enabled: true
+    requests_per_minute: 200
+    burst_size: 50
+    
+  # Concurrency limits
+  concurrency:
+    max_concurrent_requests: 100
+    max_concurrent_agents: 20
+    queue_size: 200
+
+# Feature Flags
+features:
+  # Performance optimizations (safe)
+  use_pattern_matching: true
+  use_response_cache: true
+  use_embedding_cache: true
+  use_parallel_search: true
+  use_streaming_responses: true
+  use_connection_pooling: true
+  
+  # Quality features (all enabled)
+  full_tree_building: true
+  complete_verification: true
+  detailed_thinking_process: true
+  multi_hop_search: true
+  semantic_reranking: true
+  
+  # Progressive enhancement
+  progressive_responses: true
+  initial_quick_answer: true
+  enhanced_with_verification: true
+
+# Precomputed Resources (Performance Optimization)
+precomputed:
+  # Common embeddings to preload
+  embeddings:
+    enabled: true
+    queries:
+      - "password reset"
+      - "single sign on"
+      - "deployment guide"
+      - "authentication"
+      - "api documentation"
+      - "troubleshooting"
+      - "getting started"
+      - "user management"
+      - "permissions"
+      - "integration"
+    
+  # Connection pre-warming
+  connections:
+    cosmos_db: true
+    search_service: true
+    openai: true
+    blob_storage: true
+
+# Health Check Configuration
+health_check:
+  # Component checks
+  components:
+    - name: "cosmos_db"
+      timeout_ms: 1000
+      critical: true
+      
+    - name: "search_service"
+      timeout_ms: 1000
+      critical: true
+      
+    - name: "openai"
+      timeout_ms: 2000
+      critical: true
+      
+    - name: "blob_storage"
+      timeout_ms: 1000
+      critical: false
+      
+  # Overall health timeout
+  total_timeout_ms: 5000
+
+# Environment-specific Settings
+environments:
+  production:
+    debug: false
+    log_level: "INFO"
+    enable_profiling: false
+    cache_multiplier: 1.0
+    quality_checks: "strict"
+    
+  staging:
+    debug: true
+    log_level: "DEBUG"
+    enable_profiling: true
+    cache_multiplier: 0.8
+    quality_checks: "strict"
+    
+  development:
+    debug: true
+    log_level: "DEBUG"
+    enable_profiling: true
+    cache_multiplier: 0.5
+    quality_checks: "normal"
