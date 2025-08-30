@@ -87,3 +87,6 @@ CREATE NEW FILES IF NOT REQUIRED.
 7. Monitor using Azure's built-in tools
 
 Remember: Azure has likely already solved the problem - find and use their solution!
+- to memorize Use the confluence-QandA for integrations and infra and use confluence-QandA-agents for agents, tracing etc.
+- to memorize, use autogen open telementry for tracing purposes
+- think ultrahard, if we do need to create the model client for aysnc interfacing of openai chatcompletionclient.
